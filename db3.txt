@@ -1,0 +1,136 @@
+mysql> insert into student values(101,"Sai","M",12,12345,"vizag");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select* from student;
++-------+------+--------+------+----------+-------+
+| Regno | Name | gender | Dob  | MobileNo | City  |
++-------+------+--------+------+----------+-------+
+|     0 | NULL | NULL   | NULL |     NULL | NULL  |
+|   101 | Sai  | M      |   12 |    12345 | vizag |
++-------+------+--------+------+----------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into student values(102,"Anvesh","M",20,09,"Chennai");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select* from student;
++-------+--------+--------+------+----------+---------+
+| Regno | Name   | gender | Dob  | MobileNo | City    |
++-------+--------+--------+------+----------+---------+
+|     0 | NULL   | NULL   | NULL |     NULL | NULL    |
+|   101 | Sai    | M      |   12 |    12345 | vizag   |
+|   102 | Anvesh | M      |   20 |        9 | Chennai |
++-------+--------+--------+------+----------+---------+
+3 rows in set (0.00 sec)
+
+mysql> use faculty;
+Database changed
+mysql> desc faculty;
++----------+----------+------+-----+---------+-------+
+| Field    | Type     | Null | Key | Default | Extra |
++----------+----------+------+-----+---------+-------+
+| FacNo    | int(10)  | NO   | PRI | 0       |       |
+| FacName  | char(20) | YES  |     | NULL    |       |
+| gender   | char(1)  | YES  |     | NULL    |       |
+| Dob      | int(10)  | YES  |     | NULL    |       |
+| MobileNo | int(10)  | YES  |     | NULL    |       |
+| Doj      | int(10)  | YES  |     | NULL    |       |
+| dept     | char(10) | YES  |     | NULL    |       |
++----------+----------+------+-----+---------+-------+
+7 rows in set (0.05 sec)
+
+mysql> insert into faculty values(012,"Pream","M",55,85699741,12,"AIDS");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select* from faculty;
++-------+---------+--------+------+----------+------+------+
+| FacNo | FacName | gender | Dob  | MobileNo | Doj  | dept |
++-------+---------+--------+------+----------+------+------+
+|    12 | Pream   | M      |   55 | 85699741 |   12 | AIDS |
++-------+---------+--------+------+----------+------+------+
+1 row in set (0.00 sec)
+
+mysql> insert into faculty values(102,"Ravi","M",45,8564412,09,"CSE");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select*from faculty;
++-------+---------+--------+------+----------+------+------+
+| FacNo | FacName | gender | Dob  | MobileNo | Doj  | dept |
++-------+---------+--------+------+----------+------+------+
+|    12 | Pream   | M      |   55 | 85699741 |   12 | AIDS |
+|   102 | Ravi    | M      |   45 |  8564412 |    9 | CSE  |
++-------+---------+--------+------+----------+------+------+
+
+mysql> update student set Regno=123 where name='Sai';
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from student;
++-------+--------+--------+------+----------+---------+
+| Regno | Name   | gender | Dob  | MobileNo | City    |
++-------+--------+--------+------+----------+---------+
+|     0 | NULL   | NULL   | NULL |     NULL | NULL    |
+|   102 | Anvesh | M      |   20 |        9 | Chennai |
+|   123 | Sai    | M      |   12 |    12345 | vizag   |
++-------+--------+--------+------+----------+---------+
+3 rows in set (0.00 sec)
+
+mysql> update student set Name=raju where Regno=123;
+ERROR 1054 (42S22): Unknown column 'raju' in 'field list'
+mysql> update student set Name='raju' where Regno=123;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from student;
++-------+--------+--------+------+----------+---------+
+| Regno | Name   | gender | Dob  | MobileNo | City    |
++-------+--------+--------+------+----------+---------+
+|     0 | NULL   | NULL   | NULL |     NULL | NULL    |
+|   102 | Anvesh | M      |   20 |        9 | Chennai |
+|   123 | raju   | M      |   12 |    12345 | vizag   |
++-------+--------+--------+------+----------+---------+
+3 rows in set (0.00 sec)
+
+mysql> use faculty;
+Database changed
+mysql> select*from faculty;
++-------+---------+--------+------+----------+------+------+
+| FacNo | FacName | gender | Dob  | MobileNo | Doj  | dept |
++-------+---------+--------+------+----------+------+------+
+|    12 | Pream   | M      |   55 | 85699741 |   12 | AIDS |
+|   102 | Ravi    | M      |   45 |  8564412 |    9 | CSE  |
++-------+---------+--------+------+----------+------+------+
+2 rows in set (0.00 sec)
+mysql> delete from faculty where FacName='Pream';
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select*from faculty;
++-------+---------+--------+------+----------+------+------+
+| FacNo | FacName | gender | Dob  | MobileNo | Doj  | dept |
++-------+---------+--------+------+----------+------+------+
+|   102 | Ravi    | M      |   45 |  8564412 |    9 | CSE  |
++-------+---------+--------+------+----------+------+------+
++-------+---------+--------+------+----------+------+------+
+| FacNo | FacName | gender | Dob  | MobileNo | Doj  | dept |
++-------+---------+--------+------+----------+------+------+
+|    12 | Pream   | M      |   75 | 85699741 |   12 | AIDS |
+|   102 | Ravi    | M      |   45 |  8564412 |    9 | CSE  |
++-------+---------+--------+------+----------+------+------+
+mysql> delete from faculty where Dob>=65;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select*from faculty;
++-------+---------+--------+------+----------+------+------+
+| FacNo | FacName | gender | Dob  | MobileNo | Doj  | dept |
++-------+---------+--------+------+----------+------+------+
+|   102 | Ravi    | M      |   45 |  8564412 |    9 | CSE  |
++-------+---------+--------+------+----------+------+------+
+1 row in set (0.00 sec)
+mysql> select*from student,faculty;
++--------+------+-------+------------+-------+------+------------+------------+---------+--------+------------+----------+------------+
+| name   | age  | name  | dob        | fname | age  | status     | regno      | name    | gender | dob        | mobileno | city       |
++--------+------+-------+------------+-------+------+------------+------------+---------+--------+------------+----------+------------+
+| sai    |   12 | pepsi | 2000-05-01 |  Ravi |   45 | ntresigned | 1922256453 | ram     | m      | 2000-07-23 | 53675676 | chennai    |
+| Anvesh |   20 | vasu  | 2003-05-02 | NULL  |      |            |            |         |        |            |          |            |
+| Ravi   |   45 | ram   | 1983-05-02 | NULL  |      |            |            |         |        |            |          |            |
++--------+------+-------+------------+-------+------+------------+------------+---------+--------+------------+----------+------------+
