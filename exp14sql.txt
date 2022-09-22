@@ -1,0 +1,75 @@
+mysql> use code;
+Database changed
+mysql> create table code (sno int(10),course char(10));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc code;
++--------+----------+------+-----+---------+-------+
+| Field  | Type     | Null | Key | Default | Extra |
++--------+----------+------+-----+---------+-------+
+| sno    | int(10)  | YES  |     | NULL    |       |
+| course | char(10) | YES  |     | NULL    |       |
++--------+----------+------+-----+---------+-------+
+2 rows in set (0.05 sec)
+
+mysql> insert into code values(1,'c');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into code values(2,'PyP');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into code values(3,'JAVA');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into code values(4,'SQL');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from code;
++------+--------+
+| sno  | course |
++------+--------+
+|    1 | c      |
+|    2 | PyP    |
+|    3 | JAVA   |
+|    4 | SQL    |
++------+--------+
+4 rows in set (0.00 sec)
+
+mysql> create user'sai'@'localhost'identified by anvesh;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'anvesh' at line 1
+mysql> create user'sai'@'localhost'identified by 'anvesh';
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> grant all on code to 'sai'@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for 'sai'@'localhost';
++------------------------------------------------------------------------------------------------------------+
+| Grants for sai@localhost                                                                                   |
++------------------------------------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'sai'@'localhost' IDENTIFIED BY PASSWORD '*D21256817B13B2FC8EFE783A5B906691B4F98630' |
+| GRANT ALL PRIVILEGES ON `code`.`code` TO 'sai'@'localhost'                                                 |
++------------------------------------------------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+mysql> revoke select on code from 'sai'@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for 'sai'@'localhost';
++---------------------------------------------------------------------------------------------------------------------------------------------+
+| Grants for sai@localhost                                                                                                                    |
++---------------------------------------------------------------------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'sai'@'localhost' IDENTIFIED BY PASSWORD '*D21256817B13B2FC8EFE783A5B906691B4F98630'                                  |
+| GRANT INSERT, UPDATE, DELETE, CREATE, DROP, REFERENCES, INDEX, ALTER, CREATE VIEW, SHOW VIEW, TRIGGER ON `code`.`code` TO 'sai'@'localhost' |
++---------------------------------------------------------------------------------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> revoke update on code from 'sai'@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for 'sai'@'localhost';
++-------------------------------------------------------------------------------------------------------------------------------------+
+| Grants for sai@localhost                                                                                                            |
++-------------------------------------------------------------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'sai'@'localhost' IDENTIFIED BY PASSWORD '*D21256817B13B2FC8EFE783A5B906691B4F98630'                          |
+| GRANT INSERT, DELETE, CREATE, DROP, REFERENCES, INDEX, ALTER, CREATE VIEW, SHOW VIEW, TRIGGER ON `code`.`code` TO 'sai'@'localhost' |
++-------------------------------------------------------------------------------------------------------------------------------------+

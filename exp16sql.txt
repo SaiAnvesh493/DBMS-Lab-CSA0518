@@ -1,0 +1,12 @@
+mysql> CREATE FUNCTION Sai (s CHAR(20))
+    -> RETURNS CHAR(50) DETERMINISTIC
+    -> RETURN CONCAT('Anvesh, ',s,'!');
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT Sai('Anvesh');
++-----------------+
+| Sai('Anvesh')   |
++-----------------+
+| Anvesh, Anvesh! |
++-----------------+
+1 row in set (0.00 sec)
