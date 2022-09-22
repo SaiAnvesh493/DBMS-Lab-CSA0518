@@ -1,0 +1,45 @@
+mysql> select * from code;
++------+--------+------+
+| sno  | course | name |
++------+--------+------+
+|    1 | c      | Sai  |
+|    2 | PyP    | Ram  |
+|    3 | JAVA   | Sam  |
+|    4 | SQL    | jam  |
++------+--------+------+
+4 rows in set (0.00 sec)
+
+mysql> delimiter //
+mysql> create procedure list_name (INOUT name_list varchar(4000))
+    -> begin
+    -> declare is_done INTEGER DEFAULT 0;
+    -> declare s_name varchar(100) DEFAULT "";
+    -> declare stud_cursor CURSOR FOR
+    -> select name FROM code;
+    -> declare continue handler for not found set is_done = 1;
+    -> open stud_cursor;
+    -> get_list : LOOP
+    -> fetch stud_cursor into s_name;
+    -> if is_done = 1 then
+    -> leave get_list;
+    -> end if;
+    -> set name_list =  CONCAT(s_name, ", ", name_list);
+    -> end loop get_list;
+    -> close stud_cursor;
+    -> end//
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SET @name_list ="";
+    -> CALL list_name(@name_list);
+    -> SELECT @name_list;
+    -> end//
+Query OK, 0 rows affected (0.00 sec)
+
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
++----------------------+
+| @name_list           |
++----------------------+
+| jam, Sam, Ram, Sai,  |
++----------------------+
+1 row in set (0.01 sec)
