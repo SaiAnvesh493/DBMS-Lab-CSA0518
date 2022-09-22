@@ -1,0 +1,27 @@
+mysql> DELIMITER //
+mysql> Create Trigger before_inser_sno BEFORE INSERT ON code FOR EACH ROW
+    -> BEGIN
+    -> IF NEW.sno < 0 THEN SET NEW.sno = 0;
+    -> END IF;
+    -> END //
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> INSERT INTO code(sno, Name) values(5, 'Sam');
+    -> INSERT INTO code values(6, 'Jam');
+    -> INSERT INTO code(age, Name) values(2, 'Ram');
+    -> Select * from code;
+    -> end//
+Query OK, 1 row affected (0.07 sec)
+
+Query OK, 1 row affected (0.13 sec)
+
+Query OK, 1 row affected (0.17 sec)
+
++------+---------+
+| sno  | Name    |
++------+---------+
+|   5  | Sam     |
+|   6  | Jam     |
+|   2  | Ram     |
++------+---------+
+3 rows in set (0.17 sec)
