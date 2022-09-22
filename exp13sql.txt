@@ -1,0 +1,92 @@
+mysql> select* from student;
++-------+-----------+--------+------+----------+---------+----------+
+| Regno | Name      | gender | Dob  | MobileNo | City    | courseno |
++-------+-----------+--------+------+----------+---------+----------+
+|   101 | geethika  | F      |   29 |   185945 | vizag   |     NULL |
+|   102 | Anvesh    | M      |   20 |        9 | Chennai |     NULL |
+|   121 | srujana   | F      |   25 |  1956945 | vizag   |     NULL |
+|   123 | raju      | M      |   12 |    12345 | vizag   |     NULL |
+|   221 | vamsi     | M      |   26 |    19565 | vizag   |     NULL |
+|  1101 | kiran     | M      |   12 |   123645 | vizag   |      101 |
+|  1501 | kumarn    | M      |   12 |  1235645 | vizag   |      101 |
+| 11261 | Saianvesh | M      |   18 |   149345 | vizag   |      101 |
++-------+-----------+--------+------+----------+---------+----------+
+mysql> delete from student where Regno=11261;
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select*from student;
++-------+----------+--------+------+----------+---------+----------+
+| Regno | Name     | gender | Dob  | MobileNo | City    | courseno |
++-------+----------+--------+------+----------+---------+----------+
+|   101 | geethika | F      |   29 |   185945 | vizag   |     NULL |
+|   102 | Anvesh   | M      |   20 |        9 | Chennai |     NULL |
+|   121 | srujana  | F      |   25 |  1956945 | vizag   |     NULL |
+|   123 | raju     | M      |   12 |    12345 | vizag   |     NULL |
+|   221 | vamsi    | M      |   26 |    19565 | vizag   |     NULL |
+|  1101 | kiran    | M      |   12 |   123645 | vizag   |      101 |
+|  1501 | kumarn   | M      |   12 |  1235645 | vizag   |      101 |
++-------+----------+--------+------+----------+---------+----------+
++-------+---------+--------+------+----------+------+------+---------------+---------+
+| FacNo | FacName | gender | Dob  | MobileNo | Doj  | dept | workingstatus | courses |
++-------+---------+--------+------+----------+------+------+---------------+---------+
+|   102 | Ravi    | M      | 1994 |   789564 | 2018 | CSE  | ACTIVE        | SQL     |
+|   103 | Raju    | M      | 2004 |     8499 | 2017 | cse  | inactive      | PyP     |
+|   104 | Ram     | M      | 2006 |     8499 | 2019 | cse  | inactive      | NULL    |
+|   105 | Ragu    | M      | 1986 |    85699 | 2016 | ECE  | active        | PyP     |
+|   106 | Kamal   | M      | 1987 | 45688754 | 2013 | ECE  | active        | C       |
+|   109 | Raj     | M      | 1994 |   789564 | 2018 | CSE  | ACTIVE        | SQL     |
++-------+---------+--------+------+----------+------+------+---------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> set autocommit=0;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> delect from faculty where FacNo=106;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'delect from faculty where FacNo=106' at line 1
+mysql> delete from faculty where FacNo=106;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> select*from faculty;
++-------+---------+--------+------+----------+------+------+---------------+---------+
+| FacNo | FacName | gender | Dob  | MobileNo | Doj  | dept | workingstatus | courses |
++-------+---------+--------+------+----------+------+------+---------------+---------+
+|   102 | Ravi    | M      | 1994 |   789564 | 2018 | CSE  | ACTIVE        | SQL     |
+|   103 | Raju    | M      | 2004 |     8499 | 2017 | cse  | inactive      | PyP     |
+|   104 | Ram     | M      | 2006 |     8499 | 2019 | cse  | inactive      | NULL    |
+|   105 | Ragu    | M      | 1986 |    85699 | 2016 | ECE  | active        | PyP     |
+|   106 | Kamal   | M      | 1987 | 45688754 | 2013 | ECE  | active        | C       |
+|   109 | Raj     | M      | 1994 |   789564 | 2018 | CSE  | ACTIVE        | SQL     |
++-------+---------+--------+------+----------+------+------+---------------+---------+
+mysql> select * from faculty;
++-------+---------+--------+------+----------+------+------+---------------+---------+
+| FacNo | FacName | gender | Dob  | MobileNo | Doj  | dept | workingstatus | courses |
++-------+---------+--------+------+----------+------+------+---------------+---------+
+|   103 | Raju    | M      | 2004 |     8499 | 2017 | cse  | inactive      | PyP     |
+|   104 | Ram     | M      | 2006 |     8499 | 2019 | cse  | inactive      | NULL    |
+|   105 | Ragu    | M      | 1986 |    85699 | 2016 | ECE  | active        | PyP     |
+|   106 | Kamal   | M      | 1987 | 45688754 | 2013 | ECE  | active        | C       |
+|   109 | Raj     | M      | 1994 |   789564 | 2018 | CSE  | ACTIVE        | SQL     |
++-------+---------+--------+------+----------+------+------+---------------+---------+
+5 rows in set (0.00 sec)
+
+mysql> rollback to SP3;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from faculty;
++-------+---------+--------+------+----------+------+------+---------------+---------+
+| FacNo | FacName | gender | Dob  | MobileNo | Doj  | dept | workingstatus | courses |
++-------+---------+--------+------+----------+------+------+---------------+---------+
+|   102 | Ravi    | M      | 1994 |   789564 | 2018 | CSE  | ACTIVE        | SQL     |
+|   103 | Raju    | M      | 2004 |     8499 | 2017 | cse  | inactive      | PyP     |
+|   104 | Ram     | M      | 2006 |     8499 | 2019 | cse  | inactive      | NULL    |
+|   105 | Ragu    | M      | 1986 |    85699 | 2016 | ECE  | active        | PyP     |
+|   106 | Kamal   | M      | 1987 | 45688754 | 2013 | ECE  | active        | C       |
+|   109 | Raj     | M      | 1994 |   789564 | 2018 | CSE  | ACTIVE        | SQL     |
++-------+---------+--------+------+----------+------+------+---------------+---------+
+6 rows in set (0.00 sec)
