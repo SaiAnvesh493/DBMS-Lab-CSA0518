@@ -1,0 +1,133 @@
+mysql> delimiter //
+mysql>  create procedure If_else_stored_demo(value int)
+    ->  begin
+    ->   if value > 1000 then
+    ->  select "your value is greater than 1000";
+    ->  else
+    ->  select "your value is less than or equal to 1000";
+    -> end if ;
+    ->  end
+    ->    //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>
+mysql> delimiter ;
+mysql> call If_else_stored_demo(500);
++------------------------------------------+
+| your value is less than or equal to 1000 |
++------------------------------------------+
+| your value is less than or equal to 1000 |
++------------------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> DELIMITER //
+mysql>  CREATE FUNCTION Sample (bonus INT)
+    ->  RETURNS INT
+    ->  BEGIN
+    ->  DECLARE income INT;
+    ->  SET income = 0;
+    ->  myLabel: LOOP
+    ->   SET income = income + bonus;
+    ->    IF income < 10000 THEN
+    ->  ITERATE myLabel;
+    ->  END IF;
+    ->   LEAVE myLabel;
+    ->   END LOOP myLabel;
+    -> RETURN income;
+    -> END; //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> DELIMITER ;
+mysql> SELECT Sample(1000);
++--------------+
+| Sample(1000) |
++--------------+
+|        10000 |
++--------------+
+1 row in set (0.03 sec)
+
+mysql> delimiter //
+mysql> CREATE procedure ForLoop()
+    -> wholeblock:BEGIN
+    -> DECLARE start INT ;
+    -> Declare maxLimit int;
+    -> DECLARE result VARCHAR(255);
+    -> SET start =1 ;
+    -> SET maxLimit=10;
+    -> SET result = '';
+    -> loop_label: LOOP
+    -> IF start > 10 THEN
+    -> LEAVE loop_label;
+    -> END IF;
+    -> SET result = CONCAT(result,start,',');
+    -> SET start = start + 1;
+    -> ITERATE loop_label;
+    -> END LOOP;
+    -> SELECT result;
+    -> END  //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delimiter ;
+mysql> call ForLoop();
++-----------------------+
+| result                |
++-----------------------+
+| 1,2,3,4,5,6,7,8,9,10, |
++-----------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> use exp;
+Database changed
+mysql> create table exp (ID int(10), Name varchar(50),Address varchar(35), Subject varchar(20));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into student_info values(101, "Ravi", "Amritsar", "History");
+ERROR 1146 (42S02): Table 'exp.student_info' doesn't exist
+mysql> insert into exp values(101, "Ravi", "Amritsar", "History");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into exp values(105, "Ram", "Jaipur", "Literature");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into exp values(125, "Ragu", "Shimla", "Computer");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from exp;
++------+------+----------+------------+
+| ID   | Name | Address  | Subject    |
++------+------+----------+------------+
+|  101 | Ravi | Amritsar | History    |
+|  105 | Ram  | Jaipur   | Literature |
+|  125 | Ragu | Shimla   | Computer   |
++------+------+----------+------------+
+mysql> CREATE PROCEDURE coursedetail_CASES(IN S_subject Varchar(20), OUT S_Course Varchar(50))
+    -> BEGIN
+    -> DECLARE SUB VArchar(20);
+    -> SELECT SUBJECT INTO Sub
+    -> FROM exp WHERE S_Subject = Subject;
+    -> CASE S_Subject WHEN 'Computers' THEN
+    -> SET S_Course = 'B.Tech(CSE)’;
+    -> WHEN 'History' THEN
+    -> SET S_Course = 'Masters in History';
+    -> WHEN 'Literature' THEN
+    -> SET S_Course = 'Masters in English';
+    -> ELSE
+    -> SET S_Course = 'Subject not in the table';
+    -> END CASE ;
+    -> END //
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> DELIMITER ;
+mysql> CALL coursedetail_CASES ('Computers', @S_course);
+Query OK, 0 rows affected, 1 warning (0.04 sec)
+
+mysql> Select @S_Course;
++-------------+
+| @S_Course   |
++-------------+
+| B.Tech(CSE) |
++-------------+
